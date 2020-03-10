@@ -1,0 +1,62 @@
+{% extends 'home/dashboardbase.html' %}
+{% block content %}
+<div class="col-md-9" style="background-color:white;padding: 10px; ">
+	<h4>Analytics</h4>
+<div style="overflow-x: scroll;">  
+	<table class="table">
+  <thead>
+    <tr style="background-color: #3d8079;color: white; ">
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Received</th>
+      <th scope="col">Doctor Share</th>
+      <th scope="col">Hospital Share</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% if analytics %}
+		{% if analytics|length >= 1 %}
+
+			{% for item in analytics %}
+		    <tr>
+		      <th scope="row">{{forloop.counter}}</th>
+		      <td>{{item.name}}</td>
+		      <td>{{item.date}}</td>
+		      <td>{{item.patients}}</td>
+		      <td>{{item.received}}</td>
+		      <td>{{item.doctor_share}}</td>
+		      <td>{{item.hospital_share}}</td>
+		    </tr>
+		    {% endfor %}
+		    <tr>
+	      		<th scope="row" colspan="4">total</th>
+	      		<td>RS. {{total_received}}</td>
+	      		<td>RS.{{total_doctor_share}}</td>
+	      		<td>RS. {{total_hospital_share}}</td>
+    		</tr>
+		{% endif %}
+	{%else%}
+		<tr align="center">
+			<td colspan="8">You dont have any patients</td>
+		</tr>
+		<tr>
+      		<th scope="row" colspan="4">total</th>
+      		<td>RS. 0</td>
+      		<td>RS. 0</td>
+      		<td>RS. 0</td>
+    	</tr>
+	{% endif %}
+
+    
+  </tbody>
+</table>
+</div>
+	
+</div>
+
+
+
+
+{% endblock %}

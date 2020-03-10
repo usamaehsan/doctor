@@ -1,0 +1,244 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+	<style type="text/css">
+    body{
+        font-family: open sans, sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.2px;
+background-color: #f8f9fa; 
+    }
+    @media only screen and (max-width: 600px) {
+  .hideonmobile {
+    display: none  }
+}
+</style>
+{% if users %}
+            {% for user in users %}
+                <div class="col-md-12 mt-5 mb-5" style="background-color: white;padding: 20PX;" >
+                    <div class="row" >
+                {%for image in user.userimages.all %}
+                    {% if user.userimages.all|length >= 1 %}
+                    <img class="col-md-2" src="/media/{{image.photo}}" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%else%}
+                    <img class="col-md-2" src="/media/profilepics/external-content.jpg" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%endif%}
+                {%endfor%}
+                    <div class="col-md-6 ml-1">
+                        <h4 style="text-transform: capitalize;">{{user.user_profile.member}}.
+                        {{user.user_profile.name}}</h4>
+                        <H6 style="text-transform: capitalize;color: grey">
+                        {%for edu in user.edu.all %}
+                            {{edu.degree_title}} ,
+                        {%endfor%}
+                        </H6>
+                        <H6 style="text-transform: capitalize;">
+                        {%for spec in user.spec.all %}
+                            {{spec.spec}} ,
+                        {%endfor%}
+                        </H6>
+                        <div class="row" style="text-transform: capitalize;">
+                            
+                               {%for service in user.service.all|slice:":5" %}
+                               <div class="ml-1 col-md-3 text-center mb-1" style="background-color:#f3f2f7;padding :5px;">
+                                    {{service.service}}
+                                </div>
+                                {%endfor%}                                                      
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-left: -70px;">
+                        <div style="border-left: 1px solid grey;height: 110px;">
+                            <div class="row ml-2 hideonmobile">
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp; {{user.user_profile.years_of_experience}} years experience  
+                                
+                                </div>
+                                {%for pl in user.doctorpl.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; {{pl.postal_address}}  
+                                </div>
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; Rs. {{pl.consultation_fee}} 
+                                </div>
+                                {%for day in user.docschedule.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp;
+
+                                    {% if day.sun == 1 %}
+                                        Sun,
+                                    {%endif%}
+                                    {% if day.mon == 1 %}
+                                        Mon,
+                                    {%endif%}
+                                    {% if day.tue == 1 %}
+                                        Tue,
+                                    {%endif%}
+                                    {% if day.wed == 1 %}
+                                        Wed,
+                                    {%endif%}
+                                    {% if day.thu == 1 %}
+                                        Thu,
+                                    {%endif%}
+                                    {% if day.fri == 1 %}
+                                        Fri,
+                                    {%endif%}
+                                    {% if day.sat == 1 %}
+                                        Sat
+                                    {%endif%}
+                                </div>
+
+                                {%endfor%}
+                                {%endfor%}
+                                
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class=" mt-5 mb-5" style="background-color: white;padding: 20PX;" >
+                    <h5 style="text-transform: capitalize;"> Book appointment with {{user.user_profile.member}}.
+                        {{user.user_profile.name}} 
+                    </h5>
+                    <hr>
+                    <div align="center">
+                        <h6>Enter your details below</h6>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="pl" value="{{pl}}">
+                            <input type="hidden" name="date" value="{{date}}">
+                            <input type="hidden" name="time" value="{{time}}">
+                            <input type="hidden" name="doctorid" value="{{user.id}}">
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Service:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <select class="form-control form-control-sm" name="service" required="">
+                                        <option value disabled selected>Service</option>
+                                        {%for service in user.service.all %}
+                                        <option value="{{service.service}}">
+                                            {{service.service}}
+                                        </option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Email:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="email" name="email" value="
+                                    {%for email in patient_user %}
+                                    {{email.email}}
+                                    {%endfor%}
+                                    " readonly="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Name:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="text" name="patient_name" class="form-control" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Mobile No:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="number" name="mobile_no" class="form-control" placeholder="eg. 03xx xxxxxxx">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Gender:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <select class="form-control form-control-sm" name="gender" required="">
+                                        <option value="male">
+                                            Male
+                                        </option>
+                                        <option value="female">
+                                            Female
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Age:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="number" name="years" class="form-control" placeholder="Years">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Total Patients:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="number" name="total_patients" class="form-control" placeholder="Total Patients">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                    <label>
+                                        Appontment Reason:
+                                    </label>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="text" name="reason" class="form-control" placeholder="Reason">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="col-md-4">
+                                    <input type="submit" name="bookap3" class="btn btn-warning rounded" value="Book Appontment">
+                                </div>
+                            </div>
+
+                            
+                            
+                        </form>
+                    </div>
+                    <hr>
+                </div>
+            {%endfor%}
+        {% endif %}
+                
+
+</div>
+
+
+
+
+{%endblock%}

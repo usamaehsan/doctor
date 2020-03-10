@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+	<style type="text/css">
+    body{
+        font-family: open sans, sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.2px;
+background-color: #f8f9fa; 
+    }
+</style>
+
+<h2 class="mt-4" align="center">Appointment Booked</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" align="center">
+        <div class="col-md-6 mt-3" style="background-color: white;margin:100px;box-sizing: border-box;
+        color: rgb(51, 51, 51);
+        font-family: roboto, sans-serif; padding: 20px;text-transform: capitalize;" >
+            <p><span style="font-weight: bold;">Name:&nbsp;</span><br>{{name}}</p>
+            <p><span style="font-weight: bold;">Reason:&nbsp;</span><br>{{reason}}</p>
+            {%for doctor in doctor%}
+                <p><span style="font-weight: bold;">Doctor:&nbsp;</span><br>{{doctor.user_profile.member}}&nbsp;{{doctor.user_profile.name}}</p>
+            {%endfor%}
+            <p><span style="font-weight: bold;">Hospital:&nbsp;</span><br>{{pl}}</p>
+            <p><span style="font-weight: bold;">Date:&nbsp;</span><br>{{date}}&nbsp;{{time}}</p>
+            <a class="btn btn-warning" href="{% url 'home' %}">Go To Home</a>      
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{%endblock%}

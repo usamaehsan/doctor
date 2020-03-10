@@ -1,0 +1,147 @@
+{% extends 'home/dashboardbase.html' %}
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="col-md-9" style="background-color:white;padding: 10px; " >
+	<h3>Settings</h3>
+	{% if success %}
+		<h5>{{success}}</h5>
+	{% endif %}
+	{% if error %}
+		<h5>{{error}}</h5>
+	{% endif %}
+	<div align="center">
+	{% if dpl|length > 0 %}
+		{%for item in dpl %}
+			<button type="button" class="btn btn-warning mt-2" data-toggle="modal" data-target="#editschedule{{item.id}}" style="text-transform: capitalize;">{{item.pl.name}}</button><br>
+			
+
+			<!-- Modal -->
+  <div class="modal fade" id="editschedule{{item.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 50px;padding: 30px;">
+        <div class="modal-body" style="border-radius: 50px;">
+        	<h2 style="text-transform: capitalize;">{{item.pl.name}} Settings</h2>   <form method="post">
+				{% csrf_token %}				
+				<input type="hidden" name="setting_id" value="{{item.id}}">
+				<input type="hidden" name="pl_id" value="{{item.pl.id}}">
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Slot Duration</label>
+				      <select class="form-control" name="slot_duration" >
+				        <option selected value="15" >15 minutes</option>
+				        <option value="30">30 minutes</option>
+				        <option value="45">45 minutes</option>
+				        <option value="60">60 minutes</option>
+				        <option value="120">120 minutes</option>
+				      </select>
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputPassword4">Slot Capacity</label>
+				      <input type="number" class="form-control" name="slot_capacity" value="{{item.slot_capacity}}">
+				    </div>
+				</div>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Minimum time before appointment</label>
+				      <input type="number" class="form-control" name="min_time_before_appointment" value="{{item.min_time_before_appointment}}">
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Allow Online Booking</label>
+				      <select name="allow_online_booking" class="form-control">
+				        <option value="True">Yes </option>
+				        <option value="False">No</option>
+				      </select>
+				    </div>
+				</div>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Future Appointment Days</label>
+				      <input type="number" class="form-control" name="future_appointment_days" value="{{item.future_appointment_days}}">
+				    </div>
+				</div>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Reminder(Hours)</label>
+				      <input type="number" class="form-control" name="reminder_hours" value="{{reminder_hours}}">
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Email Notification</label>
+				      <select name="email_notification" class="form-control">
+				        <option value="True">Yes </option>
+				        <option value="False">No</option>
+				      </select>
+				    </div>
+				</div>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Boking SMS(External)</label>
+				      <select name="booking_sms_external" class="form-control">
+				        <option value="True">Yes </option>
+				        <option value="False">No</option>
+				      </select>
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Boking SMS(Internal)</label>
+				      <select name="booking_sms_internal" class="form-control">
+				        <option value="True">Yes </option>
+				        <option value="False">No</option>
+				      </select>
+				    </div>
+				</div>
+				<div class="form-row" style="margin-top: 50px;">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Allow Prepayment</label>
+				      <select name="allow_prepayment" class="form-control">
+				        <option selected value="False">Not Allowed</option>
+				        <option value="True">Allowed</option>
+				      </select>
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Fee</label>
+				      <input type="number" class="form-control" name="fee" value="{{item.fee}}">
+				    </div>
+				</div>
+				<div class="form-row" style="margin-top: 50px;">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Prepayment(full/partial)</label>
+				      <select name="prepayment_full_partial" class="form-control">
+				        <option value="True">Full Prepayment </option>
+				        <option value="False">Partial Prepayment</option>
+				      </select>
+				    </div>
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Prepayment Amount</label>
+				      <input type="number" class="form-control" name="prepayment_amount" value="{{prepayment_amount}}">
+				    </div>
+				</div>
+				<div class="form-row" style="margin-top: 50px;">
+				    <div class="form-group col-md-6">
+				      <label for="inputState">Show Visit Payments</label>
+				      <select name="show_visit_payment" class="form-control">
+				        <option value="True" selected>Yes </option>
+				        <option value="False">No</option>
+				      </select>
+				    </div>
+				 </div>
+
+				  <input type="submit" name="update_schedule" value="Save">
+			</form>       
+
+        </div>
+ 
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+      
+    </div>
+  </div>
+	
+		{% endfor %}
+	{%endif%}	
+	</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,279 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+	<style type="text/css">
+    body{
+        font-family: open sans, sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.2px;
+background-color: #f8f9fa; 
+    }
+    @media only screen and (max-width: 600px) {
+  .hideonmobile {
+    display: none  }
+    .serv{
+        margin-top: -50px;
+    }
+}
+</style>
+{% if users %}
+            {% for user in users %}
+                <div class="col-md-12 mt-5 mb-5" style="background-color: white;padding: 20PX;" >
+                    <div class="row" >
+                {%for image in user.userimages.all %}
+                    {% if user.userimages.all|length >= 1 %}
+                    <img class="col-md-2" src="/media/{{image.photo}}" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%else%}
+                    <img class="col-md-2" src="/media/profilepics/external-content.jpg" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%endif%}
+                {%endfor%}
+                    <div class="col-md-6 ml-1">
+                        <h4 style="text-transform: capitalize;">{{user.user_profile.member}}.
+                        {{user.user_profile.name}}</h4>
+                        <H6 style="text-transform: capitalize;color: grey">
+                        {%for edu in user.edu.all %}
+                            {{edu.degree_title}} ,
+                        {%endfor%}
+                        </H6>
+                        <H6 style="text-transform: capitalize;">
+                        {%for spec in user.spec.all %}
+                            {{spec.spec}} ,
+                        {%endfor%}
+                        </H6>
+                        <div class="row" style="text-transform: capitalize;">
+                            
+                               {%for service in user.service.all|slice:":5" %}
+                               <div class="ml-1 col-md-3 text-center mb-1" style="background-color:#f3f2f7;padding :5px;">
+                                    {{service.service}}
+                                </div>
+                                {%endfor%}                                                      
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-left: -70px;">
+                        <div style="border-left: 1px solid grey;height: 110px;">
+                            <div class="row ml-2 hideonmobile">
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp; {{user.user_profile.years_of_experience}} years experience  
+                                
+                                </div>
+                                {%for pl in user.doctorpl.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; {{pl.postal_address}}  
+                                </div>
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; Rs. {{pl.consultation_fee}} 
+                                </div>
+                                {%for day in user.docschedule.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp;
+
+                                    {% if day.sun == 1 %}
+                                        Sun,
+                                    {%endif%}
+                                    {% if day.mon == 1 %}
+                                        Mon,
+                                    {%endif%}
+                                    {% if day.tue == 1 %}
+                                        Tue,
+                                    {%endif%}
+                                    {% if day.wed == 1 %}
+                                        Wed,
+                                    {%endif%}
+                                    {% if day.thu == 1 %}
+                                        Thu,
+                                    {%endif%}
+                                    {% if day.fri == 1 %}
+                                        Fri,
+                                    {%endif%}
+                                    {% if day.sat == 1 %}
+                                        Sat
+                                    {%endif%}
+                                </div>
+
+                                {%endfor%}
+                                {%endfor%}
+                                
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class=" mt-md-5 mb-5 serv" style="background-color: white;padding: 20PX;" >
+                    <h5 style="text-transform: capitalize;"> Book appointment with {{user.user_profile.member}}.
+                        {{user.user_profile.name}} 
+                    </h5>
+                    <hr>
+                    <div class="row">
+                <div class="col-md-6" align="center">
+                    <form method="POST">
+                        {% csrf_token %}
+                            <div class="row">
+                            <div class="col-md-12 mt-2">
+                            <label>
+                                Choose practice location:
+                            </label>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="col-md-6">
+                            <select class="form-control form-control-sm" name="pl" required="">
+                                {%for pl in user.doctorpl.all %}
+                                <option value="{{pl.pl}}">
+                                    {{pl.name}}
+                                </option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label>
+                                Choose Time(e.g 00:00 pm): 
+                            </label>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="col-md-6">
+                            <input class="form-control" name="time" type="time" />
+                        </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label>
+                                Choose Date:
+                            </label>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="col-md-6">
+                            <input class="form-control" name="date" type="date" />
+                        </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="col-md-6">
+                            <input class="btn btn-warning rounded" name="bookap2" type="submit" value="Continue" />
+                        </div>
+                        </div>
+
+                            </div>
+                </form>
+                </div>
+                        <div class="col-md-6">
+                            <h5 style="text-transform: capitalize;"> Schedule of {{user.user_profile.member}}.
+                                {{user.user_profile.name}} 
+                            </h5>
+                            <h6 class="text-muted">
+                                Please fill form according to it:
+                            </h6>
+                            {%for day in user.docschedule.all %}
+                    {% if user.doctorpl.all|length >= 1 %}
+                            {% if day.sun == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Sunday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.mon == 1 %}
+                                     <div class="row">
+                                        <div class="col-md-4">
+                                            Monday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.tue == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Tuesday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.wed == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Wednesday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.thu == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Thursday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.fri == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Friday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                                    {% if day.sat == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Saturday
+                                        </div>
+                                        <div style="color: grey">
+                                         {{day.start_time}} pm
+                                         -
+                                         {{day.finish_time}} pm <br>
+                                     </div>
+                                    </div>
+                                    {%endif%}
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                    </div>
+
+                        <hr>
+              </div>
+            {%endfor%}
+        {% endif %}
+                
+
+</div>
+
+
+
+
+{%endblock%}

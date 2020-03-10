@@ -1,0 +1,46 @@
+.ola-icon {
+    width: 64px;
+    height: 64px;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.ola-stethoscope {
+    background-image: url(../images/oladoc/icon_doctors.png)
+}
+
+.ola-jar {
+    background-image: url(../images/oladoc/icon_labtest.png)
+}
+
+.ola-capsul {
+    background-image: url(../images/oladoc/icon_order-medicine.png)
+}
+
+.ola-doc-drip {
+    background-image: url(../images/oladoc/lab-icon-01.png)
+}
+
+.ola-doc-bed {
+    background-image: url(../images/oladoc/lab-icon-02.png)
+}
+
+.ola-doc-report {
+    background-image: url(../images/oladoc/lab-icon-03.png)
+}
+
+.ola-clip {
+    background-image: url(../images/oladoc/lab_icon_step_01.png)
+}
+
+.ola-person {
+    background-image: url(../images/oladoc/lab_icon_step_02.png)
+}
+
+.list-tab-item:hover {
+    border-top: 2px solid #ff9e17
+}
+
+.bg-blue {
+    background-color: #15359a
+}

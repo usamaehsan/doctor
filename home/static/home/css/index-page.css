@@ -1,0 +1,648 @@
+.home-banner {
+    background: yellow url(../images/bg-h.jpg) no-repeat;
+    background-size: 100% auto;
+    background-position: 100% bottom;
+    height: 65vh;
+    display: flex;
+    align-items: center
+}
+
+.home-banner .as-search-section {
+    background: 0 0 !important
+}
+
+.home-banner .as-search-section .col-12.col-lg-10 {
+    margin: 0 auto;
+    color: #212529
+}
+
+.home-banner .search-from .form-control {
+    height: calc(2.95rem + 2px) !important
+}
+
+.home-banner .search-from #filter-search-button {
+    padding: .375rem 2.7rem !important;
+    font-size: 18px;
+    background-color: #ff9e15;
+    border-color: #ff9e15
+}
+
+.home-banner .search-from #filter_search_loader {
+    align-self: center;
+    right: 8px
+}
+
+.home-banner .search-from .input-group-append {
+    position: relative
+}
+
+.home-banner .search-from #navigation_loader {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto !important
+}
+
+.banner-slider .slick-slide .text-holder {
+    background: rgba(61, 128, 121, .7);
+    display: inline-block;
+    padding: 13px 30px
+}
+
+.home-banner .search-opner {
+    z-index: 9;
+    cursor: pointer
+}
+
+.find-doctor-special a {
+    color: #3c3c3c
+}
+
+.find-doctor-special .img-holder {
+    height: 56px;
+    width: 56px;
+    background: #3d8079;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    padding: 8px
+}
+
+.find-doctor-special .img-holder svg {
+    height: 34px
+}
+
+.article-slider article {
+    background: #fff
+}
+
+.article-slider cite {
+    font-style: normal;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.article-slider cite figure {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 5px
+}
+
+.brand_news-slider a img {
+    max-height: 50px
+}
+
+.doctors_location_nav ul li a {
+    font-size: 12px;
+    color: #868e96
+}
+
+ul.yellow_tick_svg {
+    padding-left: 30px
+}
+
+ul.yellow_tick_svg li {
+    position: relative
+}
+
+ul.yellow_tick_svg li:after {
+    position: absolute;
+    left: -22px;
+    top: 5px;
+    background: url(/dist/images/yellow_tick_svg.svg) no-repeat;
+    background-position: center;
+    background-size: 14px;
+    height: 14px;
+    width: 14px;
+    content: ''
+}
+
+ul.blue_arrowright_svg {
+    padding-left: 20px
+}
+
+ul.blue_arrowright_svg li {
+    position: relative
+}
+
+ul.blue_arrowright_svg li:after {
+    position: absolute;
+    left: -17px;
+    top: 5px;
+    background: url(/dist/images/blue-arrow-right.svg) no-repeat;
+    background-position: center;
+    background-size: 6px;
+    height: 14px;
+    width: 6px;
+    content: ''
+}
+
+.counter-list {
+    counter-reset: section
+}
+
+.counter-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 0 30px;
+    padding-left: 60px
+}
+
+.counter-list li svg {
+    margin: 0 15px 0 0;
+    min-width: 43px
+}
+
+.counter-list li:before {
+    counter-increment: section;
+    content: counter(section) ".";
+    font-size: 40px;
+    line-height: 1.1;
+    position: absolute;
+    left: 0
+}
+
+.bookapp_3easystep-list li {
+    display: flex;
+    align-items: center;
+    margin: 0 0 30px
+}
+
+.bookapp_3easystep-list li svg {
+    margin: 0 15px 0 0;
+    min-width: 30px
+}
+
+.mySlides {
+    display: none
+}
+
+.cursor {
+    cursor: pointer
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 20px;
+    transition: .6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 999999
+}
+
+.prev {
+    left: 0
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, .5)
+}
+
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0 40px
+}
+
+.slick-list {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0
+}
+
+.slick-list:focus {
+    outline: none
+}
+
+.slick-list.dragging {
+    cursor: pointer;
+    cursor: hand
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+}
+
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0
+}
+
+.slick-track:before,
+.slick-track:after {
+    display: table;
+    content: ''
+}
+
+.slick-track:after {
+    clear: both
+}
+
+.slick-loading .slick-track {
+    visibility: hidden
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px
+}
+
+[dir=rtl] .slick-slide {
+    float: right
+}
+
+.slick-slide img {
+    display: block
+}
+
+.slick-slide.slick-loading img {
+    display: none
+}
+
+.slick-slide.dragging img {
+    pointer-events: none
+}
+
+.slick-initialized .slick-slide {
+    display: block;
+    padding: 0 5px;
+    position: relative
+}
+
+.slick-loading .slick-slide {
+    visibility: hidden
+}
+
+.slick-vertical .slick-slide {
+    display: block;
+    height: auto;
+    border: 1px solid transparent
+}
+
+.slick-arrow.slick-hidden {
+    display: none
+}
+
+.slick-prev,
+.slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: 0 0;
+    z-index: 9
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+    color: transparent;
+    outline: none
+}
+
+.slick-prev {
+    left: 0;
+    background: url(/dist/images/arrow-right-rounded.svg) no-repeat;
+    transform: rotate(180deg);
+    transform-origin: center 8px
+}
+
+[dir=rtl] .slick-prev {
+    right: 0;
+    left: auto
+}
+
+.slick-next {
+    right: 0;
+    background: url(/dist/images/arrow-right-rounded.svg) no-repeat;
+    background-position: 100% 50%
+}
+
+[dir=rtl] .slick-next {
+    right: auto;
+    left: -3px
+}
+
+.slick-dotted.slick-slider {
+    margin-bottom: 30px
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: -30px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    z-index: 9
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 10px;
+    height: 10px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: #3d8079;
+    border-radius: 100%
+}
+
+.slick-dots li.slick-active button,
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+    outline: none;
+    background: #ff9e15
+}
+
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+    opacity: 1
+}
+
+.slick-dots li button:before {
+    font-family: slick;
+    font-size: 6px;
+    line-height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    content: '•';
+    text-align: center;
+    opacity: .25;
+    color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    color: transparent
+}
+
+.article-slider article {
+    position: relative;
+    height: 100%
+}
+
+.article-slider .slick-slide>div {
+    position: relative;
+    height: 100%
+}
+
+.article-slider.slick-initialized .slick-slide {
+    padding: 0 12px 60px;
+    height: inherit
+}
+
+.article-slider article q {
+    max-height: 174px;
+    overflow: auto
+}
+
+.article-slider article q::-webkit-scrollbar {
+    width: 5px
+}
+
+.article-slider article q::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3)
+}
+
+.article-slider article q::-webkit-scrollbar-thumb {
+    background-color: #3d8079;
+    outline: 1px solid #3d8079
+}
+
+.healthcare_articale_slider.slick-initialized .slick-slide {
+    padding: 0 20px;
+    height: inherit
+}
+
+.healthcare_articale_slider article img {
+    width: 100%
+}
+
+.mobileapp_img_holder {
+    max-width: 230px;
+    border-radius: 6px;
+    overflow: hidden
+}
+
+.mobileapp_img_holder .inner-data {
+    position: absolute;
+    left: 5px;
+    top: 7px;
+    right: 5px;
+    bottom: 6px;
+    border-radius: 6px;
+    background-color: #fff
+}
+
+.mobileapp_img_holder .mobileapp_img {
+    z-index: 9;
+    position: relative
+}
+
+.ios-appmobile-img.mobileapp_img_holder .inner-data {
+    left: 5px;
+    top: 7px;
+    right: 5px;
+    bottom: 6px;
+    overflow: hidden
+}
+
+.easystepmobileapp_img_holder {
+    overflow: visible
+}
+
+.mobileapp_img_holder .inner-data.app3easystep-slider {
+    padding: 0;
+    left: 5px;
+    right: 6px;
+    top: 7px;
+    bottom: 6px
+}
+
+.app3easystep-slider.slick-initialized .slick-slide {
+    padding: 0
+}
+
+.app3easystep-slider.slick-dotted.slick-slider {
+    margin-bottom: 0
+}
+
+.app3easystep-slider img {
+    width: 100%;
+    height: auto
+}
+
+.mobile_search_holder .search-btn-holder {
+    height: 45px
+}
+
+.mobile_search_holder .btn-holder .btn {
+    font-size: 18px
+}
+
+.google-rateing-area .rating {
+    font-size: 22px;
+    color: #ff9e15;
+    line-height: 1
+}
+
+.google-rateing-area .rating .star-fillholder {
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%
+}
+
+.google-rateing-area .rating .star-fillholder:before {
+    content: "\2605 \2605 \2605 \2605 \2605";
+    color: #ff9e15
+}
+
+@media screen and (min-width:1366px) {
+    .special-icon-holder .col-4 {
+        max-width: 12.5%;
+        flex: 0 0 12.5%;
+        width: auto
+    }
+}
+
+@media(min-width:992px) {
+    body {
+        padding-top: 56px
+    }
+}
+
+@media screen and (max-width:991px) {
+    h2,
+    .h2 {
+        font-size: 1.8rem
+    }
+    .counter-list li {
+        padding-left: 50px
+    }
+    .home-banner {
+        height: auto
+    }
+}
+
+@media screen and (max-width:575px) {
+    h1,
+    .h1 {
+        font-size: 1.7rem
+    }
+    .home-banner {
+        background: #3d8079
+    }
+    .healthcare_articale_slider.slick-initialized .slick-slide {
+        padding: 0 10px
+    }
+    .banner-bottom-area .row .col-4:after {
+        content: '';
+        position: absolute;
+        left: 100%;
+        top: 0;
+        background: #dee2e6;
+        height: 70px;
+        width: 2px;
+        bottom: 0;
+        margin: auto 0
+    }
+    .banner-bottom-area .row .col-4:last-child:after {
+        background: 0 0
+    }
+    .banner-bottom-area,
+    .find-doctor-special .special-icon-holder {
+        font-size: 13px
+    }
+    .bookapp_3easystep-list li {
+        margin: 0 0 16px
+    }
+}

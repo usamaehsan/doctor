@@ -1,0 +1,276 @@
+
+{% extends 'home/dashboardbase.html' %}
+
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://yourjavascript.com/7174319415/script.js"></script>
+<script type="text/javascript">
+  Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+  document.getElementById('datePicker').value = new Date().toDateInputValue();
+</script>
+  <script>
+$(function(){
+    $('#datePicker').datepicker({
+        onSelect:function(dateText,instance){
+            alert(dateText); //Latest selected date will give the alert.
+        }
+    });
+});
+ 
+</script>
+{% endblock %}
+{% block content %}
+
+    <div class="col-md-9" style="background-color:white;padding: 30px;border-radius: 50px; ">
+      <div class="row">
+        <div class="col-md-12" >
+          <h4 style="text-transform: capitalize;">Hi {{profile.member}} {{profile.name}}</h4><a href="{% url 'edit-profile' %}" class="cl-primary">Edit Profile</a>
+        </div>
+        <div class="col-md-12">
+        <div class="row" align="center">
+          <div class="box col-md-4" align="center">
+            <h2 class="cl-primary"> {{profile.views}}  </h2>Profile Views
+          </div>
+          <div class="box col-md-4" align="center">
+            <h2 class="cl-primary"> {{f}}  </h2>Future Appointments
+          </div>
+          <div class="box col-md-4" align="center">
+            <h2 class="cl-primary"> {{t}}  </h2>Patient Appointments
+          </div>
+          <div class="col-md-12" >
+          
+          <div id="something"></div>
+        </div>
+</div>
+
+        <div  align="center" style="margin-top: 50px;">
+          <form method="POST" align="center">
+          {% csrf_token %}
+            <input class=" filter-date form-control" type="date" name="date" id="datePicker" class="js-validate-username" style="width: 40%;display: inline-block;">
+            <input type="submit" name="search_appointment" value="search" style="padding: 5px;">
+          </form>
+          {% if date %}
+            searched date: {{date}}
+          {%endif%}
+        </div>
+       
+               
+
+<br>
+<div class="row">
+
+
+             </p> 
+             <br>
+             <p>
+               
+             </p>     
+        </div>
+      </div>
+      </div>
+
+
+<div class="tab" align="center">
+  <button class="tablinks col-md-6" onclick="openCity(event, 'FutureAppointment')" id="defaultOpen">Future Appointments</button>
+  <button class="tablinks col-md-6" onclick="openCity(event, 'PaidAppointment')">Paid Appointments</button>
+</div>
+<div id="FutureAppointment" class="tabcontent">
+
+{% now "Y-m-d" as todays_date %}
+
+  {% if docappointments %}
+<div style="overflow-x: scroll;">  
+<table class="table table-striped" style="overflow-x: scroll;">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in docappointments %}
+    {% if todays_date <= item.date|date:"Y-m-d" %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+{% elif searched_patient %}
+    <div style="overflow-x: scroll;">  
+<table class="table" style="overflow: scroll;">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in searched_patient %}
+    {% if todays_date <= item.date|date:"Y-m-d" %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+  </div>  
+  {% endif %}
+
+
+
+
+</div>
+
+<div id="PaidAppointment" class="tabcontent">
+  {% if docappointments %}
+    {% for item in docappointments %}
+    {% if todays_date > item.date|date:"Y-m-d" %}
+    <div style="overflow-x: scroll;">  
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    {% endif %}
+    {% endfor %}
+{% elif searched_patient %}
+    {% for item in searched_patient %}
+    {% if todays_date > item.date|date:"Y-m-d" %}
+    <div style="overflow-x: scroll;">  
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+
+
+
+  
+
+</div>
+
+
+
+
+
+    </div>
+    <script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #3d8079;
+  color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+{% endblock %}

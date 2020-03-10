@@ -1,0 +1,17 @@
+{% extends 'home/dashboardbase.html' %}
+{% block content %}
+<div class="col-md-9" style="background-color:white;padding: 10px; ">
+	{% for success in messages %}
+        <p>{{ success }}</p><br>
+    {% endfor %}
+	<form method="POST" style="color: grey !important;">
+		{% csrf_token %}
+		{% include 'include/default_form.html' with form=form %}
+		{% include 'include/default_form.html' with form=user_form %}
+		<div align="center">
+		<button class="btn btn-md" type="submit" style="padding: 6px;background-color: #3d8079;color: white;border:none; ">Save</button>
+	</div>
+	</form>
+</div>
+
+{% endblock %}

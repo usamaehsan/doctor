@@ -1,0 +1,217 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="{% static 'home/js/jquery-3.4.1.min.js' %}"></script>
+    <link href='{% static "home/main.css" %}' rel="stylesheet" media="screen">
+
+    <title>{{ profile.name }}</title>
+  </head>
+   <body style="background-color: rgb(243, 243, 243);">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed;
+top: 0;
+width: 100%;
+z-index: 1040;
+padding-bottom: 8px;
+padding-top: 8px;
+border-bottom: 1px solid
+#eee;
+background:
+#fff;
+box-shadow: 0 1px 7px
+rgba(0,0,0,.15);">
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+<a class="navbar-brand ml-5" href="#"><h3>Logo</h3></a>
+  <div class="collapse navbar-collapse ml-5" id="navbarSupportedContent">
+    
+    <ul class="navbar-nav mr-auto d-sm-none">
+      <div class="dropdown-divider"></div>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'dashboard' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'DocAppointment' %}">Appointments</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'DocPatients' %}">Patients</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'analytics' %}">Analytics</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'UpdateContactInfo' %}">Contact Information</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'PL' %}">Practice Location</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'password_change' %}">Change Password</a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'PlSettings' %}">Settings</a>
+      </li>
+    </ul>
+      <div class="dropdown-divider"></div>
+      <li class="nav-item dropdown mr-5">
+        <a class="nav-link dropdown-toggle mr-5 cl-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize;" align="right">
+          {{profile.name}}
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'dashboard' %}">Member Area</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'edit-profile' %}">Edit Profile</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </li>
+  </div>
+</nav>
+<div class="container mt-5 " style="position: relative;top: 50px !important;padding-bottom: 20px;border-radius: 50px;">
+  <div class="row"> 
+    <div class="col-md-3 d-none d-md-block" style="background-color:#3d8079;border-radius: 50px !important;padding: 15px;">
+      <div class="side-item">
+        <a href="{% url 'dashboard' %}"><i class="fa fa-globe fa-1x"></i> Home</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'DocAppointment' %}"><i class="fa fa-globe fa-1x"></i> Appointments</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'DocPatients' %}"><i class="fa fa-globe fa-1x"></i> Patients</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'analytics' %}"><i class="fa fa-globe fa-1x"></i> Analytics</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'UpdateContactInfo' %}"><i class="fa fa-globe fa-1x"></i> Contact Information</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'PL' %}"><i class="fa fa-globe fa-1x"></i>Practice Locations</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'password_change' %}"><i class="fa fa-globe fa-1x"></i> Change Password</a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="side-item">
+        <a href="{% url 'PlSettings' %}"><i class="fa fa-globe fa-1x"></i>Settings</a>
+      </div>
+      <div class="dropdown-divider"></div>
+    </div>
+
+{% block content %}
+{% endblock %}
+</div>
+</div>
+
+
+
+<footer class="site-footer footer bg-dark mt-5" style="position:relative;top:60px;">
+<div class="container-fluid" style="border-top: 1px solid #707070;">
+<div class="container">
+<div class="row py-2 d-md-flex align-items-center">
+<div class="col-md-6 text-center text-md-left">
+<p class="footer-font-size text-secondary m-0">© 2019 -
+<script>
+                        document.write(new Date().getFullYear())
+                        </script></p>
+</div>
+<div class="col-md-6 text-center text-md-right">
+
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+
+
+<style type="text/css">
+  .filter-date{
+    width: 100%;
+
+margin: 0 auto;
+
+padding-left: 0px;
+
+text-align: center;
+background:
+#fff !important;
+
+cursor: pointer;
+  }
+  .cl-primary{
+    color: #3d8079;
+  }
+  body{
+    font-family: roboto,sans-serif;
+  }
+  .fa{
+    font-size:24px;
+    margin-right: 10px;
+  }
+  .side-item a{
+    color: white;
+  }
+  .side-item{
+    color: white;
+    padding: 10px;
+  }
+  .dropdown-menu{
+    position: absolute;
+top: 100%;
+right: 50px;
+z-index: 1000;
+display: none;
+float: left;
+min-width: 160px;
+padding: 5px 0;
+
+font-size: 14px;
+text-align: left;
+list-style: none;
+background-color:
+#fff;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+border: 1px solid #ccc;
+border: 1px solid
+rgba(0,0,0,.15);
+border-radius: 4px;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  }
+</style>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src='{% static "home/js/main.js" %}'></script>
+    {% block javascript %}{% endblock %}
+  </body>
+</html>

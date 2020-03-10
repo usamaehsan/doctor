@@ -1,0 +1,123 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+ {% load staticfiles %}
+
+
+    
+
+    <main style="margin-top: -100px;">
+
+        <section class="mt-5 pt-5 is-relative" id="particles-js" style="background: #3d8079">
+            <div class="container is-relative z-1 mt-5">
+                <h1 class="text-white text-md-center display-4 d-none d-md-block">Make your practice perfect.</h1>
+                <h2 class="h1 text-white d-md-none mb-3">Make your practice perfect.</h2>
+                <div class="row my-md-5">
+                    <div class="col-lg px-sm-5">
+                        <ul class="text-white list-unstyled my-3">
+                            <li class="h5 d-none d-md-block mb-3">Let millions of patients find you</li>
+                            <li class="h5 d-none d-md-block mb-3">Get more appointments through online bookings</li>
+                            <li class="h5 d-none d-md-block mb-3">Create and view patient records from anywhere</li>
+                            <li class="h5 d-none d-md-block">Manage your schedule efficiently</li>
+                            <li class="d-flex align-items-baseline d-md-none">Let millions of patients find you</li>
+                            <li class="d-flex align-items-baseline d-md-none">Get more appointments through online bookings</li>
+                            <li class="d-flex align-items-baseline d-md-none">Create and view patient records from anywhere</li>
+                            <li class="d-flex align-items-baseline d-md-none">Manage your schedule efficiently</li>
+                        </ul>
+                    </div>
+                    <div class="d-none d-lg-block col-auto px-0 border border-left-0 border-top-0 border-bottom-0"></div>
+                    <div class="col-lg px-md-5 py-3">
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+
+                                <a href="{% url 'register' %}" class="d-block btn btn-lg bg-transparent border-white text-white clickable mb-2">I want to sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <section class="pt-5 pt-sm-0" style="background: #f3f3f5;margin-top: 100px!important">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-left text-md-left">
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">Expand your digital footprint</p>
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">Takes 5 minutes to publish your profile</p>
+                        <p class="h5 lh-6 d-flex align-items-center text-secondary fw-400">Let millions of patients find you</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="img-fluid" src="{% static 'home/images/g.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="pt-5 pt-sm-0" style="background: #fff;margin-top: 100px !important;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-left text-md-left order-md-2">
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">Create and view patient files on the go</p>
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">Manage patients at multiple times</p>
+                        <p class="h5 lh-6 d-flex align-items-center text-secondary fw-400">Never lose patient history again</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="img-fluid" src="{% static 'home/images/docc.png' %}" alt="" style="height: 500px !important;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="pt-5 pt-sm-0" style="background: #f3f3f5;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-left text-md-left">
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">Manage your calendar effortlessly and efficiently</p>
+                        <p class="h5 lh-6 mb-3 d-flex align-items-center text-secondary fw-400">View all your appointments in one place</p>
+                        <p class="h5 lh-6 d-flex align-items-center text-secondary fw-400">Send automated reminders to patients to reduce no-shows</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="img-fluid" src="{% static 'home/images/ff.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-top-doctor" style="background-color: #3d8079 !important;">
+            <div class="container p-5">
+                <div class="row">
+                    <div class="col-md-10 mx-auto">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h2 class="text-white mt-0 fw-400">Are you a top doctor?</h2>
+                                <h3 class="text-white d-none d-md-block fw-400">Join thousands of other doctors who are using doc to take their practice to the next level.</h3>
+                                <h3 class="text-white h5 d-md-none">Join thousands of other doctors who are using doc to take their practice to the next level.</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row px-md-5 d-md-flex align-items-center">
+                                    <div class="col-md-6 col-lg-4 mx-auto pt-4">
+                                        <div class="row">
+                                            <div class="col px-0">
+
+                                                <a href="{% url 'register' %}">I want to sign up</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        
+
+
+    </main>
+
+
+    
+
+{% endblock %}

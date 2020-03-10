@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+
+
+{% block content %}
+
+<div class="container mt-5 mb-5" align="center">
+{% if msg %}
+<h5>{{msg}}</h5>
+{%else%}
+	<h5>A message has been sent to:
+  {%if email %}
+  		{{email}}
+   {%endif%}
+	</h5>
+<h6>Please enter verification code sent to 
+  {%if email %}
+  		{{email}}
+   {%endif%}
+</h6>
+<form method="POST">
+	{% csrf_token %}
+	<div class="form-row">
+		<div class="col-md-12">
+		<div class="col-md-6">
+			<input type="text" name="otp" class="form-control" placeholder="Enter verification code">
+		</div>
+	</div>
+</div>
+	<div class="form-row">
+		<div class="col-md-12">
+		<div class="col-md-6 mt-2" align="center">
+			<input type="hidden" name="email" value="{{email}}">
+			<input type="submit" name="patient_login2" class="btn btn-warning" value="login" >
+		</div>
+	</div>
+				
+	</div>
+</form>
+	
+</div>
+{%endif%}
+{% endblock %}

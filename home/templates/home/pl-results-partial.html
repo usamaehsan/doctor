@@ -1,0 +1,9 @@
+{% if pls %}
+    <ul>
+        {% for pl in pls %}
+        <li>{{ pl.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No artists found.</p>
+{% endif %}

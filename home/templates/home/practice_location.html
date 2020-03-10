@@ -1,0 +1,208 @@
+{% extends 'home/dashboardbase.html' %}
+{% block content %}
+<div class="col-md-9" style="background-color:white;padding: 10px; ">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<h4>Add a Practice Location</h4>
+	{% if success %}
+		<h5>Practice location is added successfully</h5>
+	{% endif %}
+	{% if error %}
+		<h5>{{error}}</h5>
+	{% endif %}
+	<div align="center">
+		<form method="POST">
+			{% csrf_token %}
+			<label>Location:</label>
+			<input type="text" name="pl_name">
+			<button type="submit" class="btn btn-warning">Add</button>
+		</form>
+	</div>
+	<div>
+	{% if searched_practce_location %}
+		{% if searched_practce_location|length >= 1 %}
+		Please select practice location that you want to add:
+				<form method="POST">
+					{% csrf_token %}
+
+			{% for searched_practce_location in searched_practce_location %}
+				<input type="checkbox" id="Check{{ forloop.counter }}" name="pl_checkbox" value="{{searched_practce_location.pk}}" onclick="selectOnlyThis(this.id)">{{searched_practce_location}}<BR>
+
+			{%endfor%}
+				<input type="submit" name="save_pl">
+				</form>
+		{% endif %}
+	{% endif %}
+	{% if searched_practce_location.count <= 0 %}
+		Above hospital/clinic is not in our list currently. Please provide following information to add it.	
+		<a href="{% url 'AddPL' %}" class="btn btn-warning">Add Now</a>
+	{% endif %}
+	</div>
+
+	<div style="background-color: ;">
+		{% if dpl2|length > 0 %}
+			
+				
+				{%for dpl2 in dpl2%}
+				<div class="row" style="background-color: #3d8079;color: white; margin: 30px;padding: 10px;border-radius: 30px; ">
+				<div class="col-md-8">
+					<h5>{{dpl2.pl.name}}({{dpl2.pl.city}})</h5>
+					<p>
+						{{dpl2.pl.postal_address}}
+					</p>
+					 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editschedule{{dpl2.pl.id}}">Edit Schedule</button>
+					 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#holidays{{dpl2.pl.id}}">Holidays</button>
+				</div>
+				<div class="col-md-4">
+					<div align="right">
+						<a href="deletepl/{{dpl2.pl.id}}">
+							<i class="fa fa-trash fa-1x text" aria-hidden="true" style="color: #ffc107"></i><br>
+						</a>
+					</div>
+			
+
+					{% if dpl2.sun is True %}
+						Sun,
+					{% endif %}
+					{% if dpl2.mon is True %}
+						Mon,
+					{% endif %}
+					{% if dpl2.tue is True %}
+						Tue,
+					{% endif %}
+					{% if dpl2.wed is True %}
+						Wed,
+					{% endif %}
+					{% if dpl2.thu is True %}
+						Thu,
+					{% endif %}
+					{% if dpl2.fri is True %}
+						Fri,
+					{% endif %}
+					{% if dpl2.sat is True %}
+						Sat
+					{% endif %}
+					<br>
+					{{dpl2.start_time}}PM-{{dpl2.finish_time}}PM
+
+				</div>
+					</div>
+
+
+<!-- Modal -->
+  <div class="modal fade" id="editschedule{{dpl2.pl.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 50px;padding: 30px;">
+        <div class="modal-body" style="border-radius: 50px;">
+        	<h5>Please select your working days :</h5>
+          <form method="post">
+					      	{% csrf_token %}
+					      	<input type="hidden" name="schedule_id" value="{{dpl2.id}}">
+					      	<input type="hidden" name="pl_id" value="{{dpl2.pl.id}}">
+					      	<input type="hidden" name="sun" value="False">
+					      	<input type="checkbox" name="sun" value="True" {% if dpl2.sun is True %} checked="" {% endif %}>Sun
+					      	<input type="hidden" name="mon" value="False">
+					      	<input type="checkbox" name="mon" value="True" {% if dpl2.mon is True %} checked="" {% endif %}>Mon
+					      	<input type="hidden" name="tue" value="False">
+					      	<input type="checkbox" name="tue" value="True" {% if dpl2.tue is True %} checked="" {% endif %}>Tue
+					      	<input type="hidden" name="wed" value="False">
+					      	<input type="checkbox" name="wed" value="True" {% if dpl2.wed is True %} checked="" {% endif %}>Wed
+					      	<input type="hidden" name="thu" value="False">
+					      	<input type="checkbox" name="thu" value="True" {% if dpl2.thu is True %} checked="" {% endif %}>Thu
+					      	<input type="hidden" name="fri" value="False">
+					      	<input type="checkbox" name="fri" value="True" {% if dpl2.fri is True %} checked="" {% endif %}>Fri
+					      	<input type="hidden" name="sat" value="False">
+					      	
+					      	<input  type="checkbox" name="sat" value="True" {% if dpl2.sat is True %} checked="" {% endif %}>Sat
+					      	<br>
+					      	<div class="row">
+					      	<div class="col-md-6">
+					      		<label>Opening Time:</label>
+					      	<input class="form-control" type="text" name="start_time" placeholder="eg. 0:00"> </div>
+					      	<div class="col-md-6">
+					      	<label>Closing Time:</label>
+					      	<input class="form-control" type="text" name="end_time" placeholder="eg. 0:00">
+					      </div>
+					  </div><br>
+					      	<input class="btn btn-warning" type="submit" name="update_schedule" value="Save">
+					      </form>
+
+        </div>
+ 
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<div class="modal fade" id="holidays{{dpl2.pl.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 50px;padding: 30px;">
+        <div class="modal-body" style="border-radius: 50px;">
+        	<h5>Please Select Holidays:</h5>
+        
+					    <form method="post">
+					    	{% csrf_token %}
+					      <input type="hidden" name="schedule_id" value="{{dpl2.id}}">
+					      	<input type="hidden" name="pl_id" value="{{dpl2.pl.id}}">
+					      	<input type="hidden" name="sun" value="True">
+					      	<input type="checkbox" name="sun" value="False" {% if dpl2.sun is False %} checked="" {% endif %}>Sun
+					      	<input type="hidden" name="mon" value="True">
+					      	<input type="checkbox" name="mon" value="False" {% if dpl2.mon is False %} checked="" {% endif %}>Mon
+					      	<input type="hidden" name="tue" value="True">
+					      	<input type="checkbox" name="tue" value="False" {% if dpl2.tue is False %} checked="" {% endif %}>Tue
+					      	<input type="hidden" name="wed" value="True">
+					      	<input type="checkbox" name="wed" value="False" {% if dpl2.wed is False %} checked="" {% endif %}>Wed
+					      	<input type="hidden" name="thu" value="True">
+					      	<input type="checkbox" name="thu" value="False" {% if dpl2.thu is False %} checked="" {% endif %}>Thu
+					      	<input type="hidden" name="fri" value="True">
+					      	<input type="checkbox" name="fri" value="False" {% if dpl2.fri is False %} checked="" {% endif %}>Fri
+					      	<input type="hidden" name="sat" value="True">
+					      	<input type="checkbox" name="sat" value="False" {% if dpl2.sat is False %} checked="" {% endif %}>Sat
+					      	<br>
+					      	<input type="hidden" name="start_time" placeholder="eg. 0:00" value="{{dpl2.start_time}}">
+					      	<input type="hidden" name="end_time" placeholder="eg. 0:00" value="{{dpl2.finish_time}}">
+					      	<input class="btn btn-warning" type="submit" name="update_schedule" value="Save">
+					      </form>
+
+        </div>
+ 
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+      
+    </div>
+  </div>
+
+				{%endfor%}
+				
+				
+			</div>
+		{%endif%}
+	</div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+	function selectOnlyThis(id) {
+    for (var i = 1;i <= {{searched_practce_location.count}} ; i++)
+    {
+        document.getElementById("Check" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+}
+</script>
+
+
+
+{% endblock %}

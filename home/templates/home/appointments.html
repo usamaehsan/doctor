@@ -1,0 +1,141 @@
+{% extends 'home/dashboardbase.html' %}
+{% block content %}
+<div class="col-md-9" style="background-color:white;padding: 10px; ">
+	<h4>Appointments</h4>
+<div class="tab" align="center">
+  <button class="tablinks col-md-6" onclick="openCity(event, 'future')" id="defaultOpen">Future Appointments</button>
+  <button class="tablinks col-md-6" onclick="openCity(event, 'booked')">Patient Booked Appointments</button>
+</div>
+
+<div id="future" class="tabcontent">
+{% now "Y-m-d" as todays_date %}
+
+	{% if docappointments %}
+		<div style="overflow-x: scroll;">  
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in docappointments %}
+    {% if todays_date <= item.date|date:"Y-m-d" %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+		</div>
+	{% endif %}
+</div>
+
+<div id="booked" class="tabcontent">
+  {% if docappointments %}
+		
+   	<div style="overflow-x: scroll;">  		
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Patients</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for item in docappointments %}
+    {% if todays_date > item.date|date:"Y-m-d" %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{item.patient_name}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.total_patients}}</td>
+      <td>{{item.patient_phone}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+
+  </tbody>
+</table>
+</div>
+			{% endif %}
+</div>
+	
+</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #3d8079;
+  color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+
+
+{% endblock %}

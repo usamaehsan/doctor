@@ -1,0 +1,329 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+ {% load staticfiles %}
+ {% now "D" as todays_date %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</div>
+</div>
+</div>
+<style type="text/css">
+    body{
+        font-family: open sans, sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 19.2px;
+background-color: #f8f9fa; 
+    }
+    @media only screen and (max-width: 600px) {
+  .hideonmobile {
+    display: none  }
+}
+@media only screen and (min-width: 600px) {
+  .hideonlaptop {
+    display: none  }
+}
+</style>
+<div  class="container">
+<div class="center-block form-row form-check form-check-inline ml-md-5" style="margin-top: 70px;position:relative:left: 200px !important;" align="center">
+    <form method="post" action="{% url 'doc_list' 'all' %}" class="ml-sm-5 ml-md5">
+        {% csrf_token %}
+        <div class="form-row" style="border-radius: 40px !important;">
+            <div class="col">
+                <input type="text" class="form-control form-control-lg" placeholder="City" name="city" required="" style="border-radius: 40px;">
+            </div>
+            <div class="col" style="margin-left: -10px">
+                <input type="hidden" name='doc_hosp' value="all">
+                <input type="text" class="form-control form-control-lg" placeholder="Doctors, hospitals, specialties, services, diseases" name='doc_hosp' style="border-radius: 40px;">
+            </div>
+            <div class="col" style="margin-left: -10px">
+                <select class="form-control form-control-lg" name="spec" style="border-radius: 40px;">
+                    <option value="all" selected="">Specialty</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="Skin Specialist">Skin Specialist</option>
+                    <option value="Child Specialist">Child Specialist</option>
+                    <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                    <option value="ENT Specialist">ENT Specialist</option>
+                    <option value="General Surgeonn">General Surgeonn</option>
+                    <option value="Diabetes specialist">Diabetes specialist</option>
+                    <option value="Eye Specialist">Eye Specialist</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row mt-md-2" style="border-radius: 40px !important;margin-left: 40%" align="center">
+            
+        </div>
+        <input type="submit" class="btn btn-lg btn-light mt-3" name="searchhome" value="search" style="background-color: #ff9e15;color:white;border-radius: 40px;margin-left: -15px">
+
+
+    </form>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Top doctors in Pakistan</h4>
+    </div>
+    {% if zero %}
+    <div class="col-md-12 mt-5 mb-5" align="center">
+        <h1>
+            No Doctors found in {{city}}
+        </h1>
+    </div>
+    {% else %}
+        {% if docpl %}
+            {% for user in docpl %}
+                <div class="col-md-12 mt-5 mb-5 hideonmobile" style="background-color: white;padding: 20PX;" >
+                    <div class="row" >
+                {%for image in user.userimages.all %}
+                <a href="{% url 'doc_detail' user.id %}" class="col-md-2">
+                    {% if user.userimages.all|length >= 1 %}
+                    <img  src="/media/{{image.photo}}" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%else%}
+                    <img src="/media/profilepics/external-content.jpg" style="border-radius: 40px;width:150px; height:150PX; ">
+                    {%endif%}
+                    </a>
+                {%endfor%}
+                
+                    <div class="col-md-6 ml-1">
+                        <a href="{% url 'doc_detail' user.id %}">
+                        <h4 style="text-transform: capitalize;">{{user.user_profile.member}}.
+                        {{user.user_profile.name}}
+                        </h4>
+                        </a>
+                        <H6 style="text-transform: capitalize;color: grey">
+                        {%for edu in user.edu.all %}
+                            {{edu.degree_title}} ,
+                        {%endfor%}
+                        </H6>
+                        <H6 style="text-transform: capitalize;">
+                        {%for spec in user.spec.all %}
+                            {{spec.spec}} ,
+                        {%endfor%}
+                        </H6>
+                        <div class="row" style="text-transform: capitalize;">
+                            
+                               {%for service in user.service.all|slice:":5" %}
+                               <div class="ml-1 col-md-3 text-center mb-1" style="background-color:#f3f2f7;padding :5px;">
+                                    {{service.service}}
+                                </div>
+                                {%endfor%} 
+                                <div class="text-center">
+                                    <a href="doctor-detail">
+                                    {%if user.service.all|length > 5 %} 
+                                        &nbsp;+{{user.service.all|add:"-5"}} more..
+                                    {%endif%}
+                                    </a>
+                                </div>                                                     
+                        </div>
+                        <div class="col-md-4 mt-2" >
+                            {% if is_patient_login %}
+                            <a href="{% url 'book_ap' user.id %}" style="border-radius: 40px;" class="btn btn-warning">Book Appointment</a>
+                            {%else%}
+                             <button type="button" data-toggle="modal" data-target="#patientlogin" style="border-radius: 40px;" class="btn btn-warning">Book Appointment</button>
+                             {%endif%}
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-left: -70px;">
+                        <div style="border-left: 1px solid grey;height: 110px;">
+                            <div class="row ml-2">
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp; {{user.user_profile.years_of_experience}} years experience  
+                                
+                                </div>
+                                {%for pl in user.doctorpl.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; {{pl.postal_address}}  
+                                </div>
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+
+                                &nbsp; Rs. {{pl.consultation_fee}} 
+                                </div>
+                                {%endfor%}
+                                {%for day in user.docschedule.all|slice:":1" %}
+                                <div class="col-md-12">
+                                <i style="font-size:24px" class="fa">&#xf006;</i>
+                                &nbsp;
+                                    {% if day.sun == 1 %}
+                                        Sun,
+                                    {%endif%}
+                                    {% if day.mon == 1 %}
+                                        Mon,
+                                    {%endif%}
+                                    {% if day.tue == 1 %}
+                                        Tue,
+                                    {%endif%}
+                                    {% if day.wed == 1 %}
+                                        Wed,
+                                    {%endif%}
+                                    {% if day.thu == 1 %}
+                                        Thu,
+                                    {%endif%}
+                                    {% if day.fri == 1 %}
+                                        Fri,
+                                    {%endif%}
+                                    {% if day.sat == 1 %}
+                                        Sat
+                                    {%endif%}
+                                </div>
+
+                                {%endfor%}
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="container hideonlaptop">
+<div class="row align-items-center"">
+<div class="col-12 col-lg-2 align-self-start">
+
+<div class="row css-row-picture-name">
+<div class="col-3 col-lg-12 px-3 px-lg-3 pb-2">
+<div class="avatar position-relative">
+<a href="{% url 'doc_detail' user.id %}" class="css-avatar-img rounded-circle d-block overflow-hidden position-relative overflow-hidden shadow-none">
+{%for image in user.userimages.all %}
+{% if user.userimages.all|length >= 1 %}
+<img class="img-fluid card-img-overlay p-0" src="/media/{{image.photo}}">
+{%else%}
+<img class="img-fluid card-img-overlay p-0" src="/media/profilepics/external-content.jpg">
+{%endif%}
+{%endfor%}
+</a>
+</div>
+</div>
+<div class="col-9 col-lg-9 mobil-offset d-lg-none">
+<div class="row">
+<div class="col-12 pr-2 pr-sm-5">
+<div class="row css-name-offset">
+<div class="col-12">
+<h2 class="h5 font-weight-bold m-0">
+<a href="{% url 'doc_detail' user.id %}" class="btn-light bg-transparent shadow-none btn-outline-none" style="text-transform: capitalize;">{{user.user_profile.member}}.
+                        {{user.user_profile.name}} </a>
+</h2>
+<p class="m-0"><small class="text-muted text-sm">{%for edu in user.edu.all %}
+                            {{edu.degree_title}} ,
+                        {%endfor%}</small></p>
+<h3 class="m-0 h6"><small class="text-sm">{%for spec in user.spec.all %}
+                            {{spec.spec}} ,
+                        {%endfor%}</small></h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-12 col-lg-7 order-3 order-lg-2">
+<div class="row mobil-offset mb-3 d-none d-lg-block">
+<div class="col-12 pr-5">
+<div class="row css-name-offset">
+<div class="col-12">
+<h2 class="h5 font-weight-bold m-0">
+<a href="{% url 'doc_detail' user.id %}" class="btn-light bg-transparent text-decoration-none shadow-none btn-outline-none" style="text-transform: capitalize;">{{user.user_profile.member}}.
+                        {{user.user_profile.name}} </a>
+</h2>
+<p class="m-0"><small class="text-muted text-sm">{%for edu in user.edu.all %}
+                            {{edu.degree_title}} ,
+                        {%endfor%}</small></p>
+<h3 class="m-0 h6"><small class="text-sm">{%for spec in user.spec.all %}
+                            {{spec.spec}} ,
+                        {%endfor%}</small></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12">
+<div class="row align-items-center">
+<div class="col-12 pr-lg-5">
+<div class="row">
+<div class="col-12">
+<div class="row">
+    {%for service in user.service.all|slice:":5" %}
+<div class="col-6 col-lg-4 mb-2" align="left">
+<span class="btn btn-mediumgray-default btn-sm btn-block text-xs text-truncate">
+
+{{service.service}}
+</span>
+</div>
+{%endfor%} 
+ <div class="col-6 col-lg-4 mb-2" style="background-color: #f3f2f7;">
+<button class="btn btn-link btn-sm text-xs">
+<u><a href="{% url 'doc_detail' user.id %}" class="shadow-none">
+                                    {%if user.service.all|length > 5 %} 
+                                        &nbsp;+{{user.service.all|add:"-5"}} more..
+                                    {%endif%}
+                                    </a></u>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="row pt-2 pt-lg-0">
+<div class="col-6 col-lg-5 col-xl-4 mb-2 mb-lg-0 d-lg-none">
+<a href="{% url 'doc_detail' user.id %}" class="btn btn-warning" style="border-radius: 40px;">View Profile</a>
+</div>
+<div class="col-6 col-lg-5 col-xl-4 top-arrow-dropdown dropdown mb-2 mb-lg-0">
+    {% if is_patient_login %}
+                            <a href="{% url 'book_ap' user.id %}" style="border-radius: 40px;" class="btn btn-warning">Book Appointment</a>
+                            {%else%}
+                             <button type="button" data-toggle="modal" data-target="#patientlogin" style="border-radius: 40px;" class="btn btn-warning">Book Appointment</button>
+                             {%endif%}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="col-12 col-lg-3 order-2 css-col-stats py-2 py-lg-0 px-2">
+<div class="row">
+<div class="my-1 col-6 col-lg-12">
+<div class="row align-items-center">
+<small class="col pl-0 text-sm"><i style="font-size:14px" class="fa">&#xf006;</i>&nbsp;{{user.user_profile.years_of_experience}} years experience</small>
+</div>
+</div>
+<div class="my-0 col-6 col-lg-12">
+<div class="row align-items-center">
+<small class="col text-sm text-truncate">
+{%for pl in user.doctorpl.all|slice:":1" %}
+<i style="font-size:14px" class="fa">&#xf006;</i>
+&nbsp; {{pl.postal_address}}  
+{%endfor%}
+</small>
+</div>
+</div>
+<div class="my-2 col-6 col-lg-12">
+<div class="row align-items-center">
+<small class="col pl-0 text-sm">
+{%for pl in user.doctorpl.all|slice:":1" %}
+   <i style="font-size:14px" class="fa">&#xf006;</i>
+{{pl.consultation_fee}}  &nbsp; Rs.
+{%endfor%}
+</small>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+            </div>
+            {%endfor%}
+        {% endif %}
+    {%endif%}
+</div>
+
+</div>
+
+{% endblock %}
